@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProductDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CategoryTB">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductTB">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="UnitID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnitTB">
+          <Key>
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="UnitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UnitName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ProductTB_CategoryTB">
+          <End Role="CategoryTB" Type="Self.CategoryTB" Multiplicity="1" />
+          <End Role="ProductTB" Type="Self.ProductTB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryTB">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="ProductTB">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductTB_UnitTB">
+          <End Role="UnitTB" Type="Self.UnitTB" Multiplicity="1" />
+          <End Role="ProductTB" Type="Self.ProductTB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnitTB">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="ProductTB">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProductDBModelStoreContainer">
+          <EntitySet Name="CategoryTB" EntityType="Self.CategoryTB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductTB" EntityType="Self.ProductTB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnitTB" EntityType="Self.UnitTB" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ProductTB_CategoryTB" Association="Self.FK_ProductTB_CategoryTB">
+            <End Role="CategoryTB" EntitySet="CategoryTB" />
+            <End Role="ProductTB" EntitySet="ProductTB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductTB_UnitTB" Association="Self.FK_ProductTB_UnitTB">
+            <End Role="UnitTB" EntitySet="UnitTB" />
+            <End Role="ProductTB" EntitySet="ProductTB" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProductDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CategoryTB">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ProductTBs" Relationship="Self.FK_ProductTB_CategoryTB" FromRole="CategoryTB" ToRole="ProductTB" />
+        </EntityType>
+        <EntityType Name="ProductTB">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="UnitID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CategoryTB" Relationship="Self.FK_ProductTB_CategoryTB" FromRole="ProductTB" ToRole="CategoryTB" />
+          <NavigationProperty Name="UnitTB" Relationship="Self.FK_ProductTB_UnitTB" FromRole="ProductTB" ToRole="UnitTB" />
+        </EntityType>
+        <EntityType Name="UnitTB">
+          <Key>
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="UnitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ProductTBs" Relationship="Self.FK_ProductTB_UnitTB" FromRole="UnitTB" ToRole="ProductTB" />
+        </EntityType>
+        <Association Name="FK_ProductTB_CategoryTB">
+          <End Role="CategoryTB" Type="Self.CategoryTB" Multiplicity="1" />
+          <End Role="ProductTB" Type="Self.ProductTB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryTB">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="ProductTB">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductTB_UnitTB">
+          <End Role="UnitTB" Type="Self.UnitTB" Multiplicity="1" />
+          <End Role="ProductTB" Type="Self.ProductTB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnitTB">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="ProductTB">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProductDBEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CategoryTBs" EntityType="Self.CategoryTB" />
+          <EntitySet Name="ProductTBs" EntityType="Self.ProductTB" />
+          <EntitySet Name="UnitTBs" EntityType="Self.UnitTB" />
+          <AssociationSet Name="FK_ProductTB_CategoryTB" Association="Self.FK_ProductTB_CategoryTB">
+            <End Role="CategoryTB" EntitySet="CategoryTBs" />
+            <End Role="ProductTB" EntitySet="ProductTBs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductTB_UnitTB" Association="Self.FK_ProductTB_UnitTB">
+            <End Role="UnitTB" EntitySet="UnitTBs" />
+            <End Role="ProductTB" EntitySet="ProductTBs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProductDBModelStoreContainer" CdmEntityContainer="ProductDBEntities3">
+          <EntitySetMapping Name="CategoryTBs">
+            <EntityTypeMapping TypeName="ProductDBModel.CategoryTB">
+              <MappingFragment StoreEntitySet="CategoryTB">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTBs">
+            <EntityTypeMapping TypeName="ProductDBModel.ProductTB">
+              <MappingFragment StoreEntitySet="ProductTB">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnitTBs">
+            <EntityTypeMapping TypeName="ProductDBModel.UnitTB">
+              <MappingFragment StoreEntitySet="UnitTB">
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProductDetailModelStoreContainer" CdmEntityContainer="ProductDetailEntities">
+    <EntitySetMapping Name="CategoryTBs">
+      <EntityTypeMapping TypeName="ProductDetailModel.CategoryTB">
+        <MappingFragment StoreEntitySet="CategoryTB">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Category_Name" ColumnName="Category Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductTBs">
+      <EntityTypeMapping TypeName="ProductDetailModel.ProductTB">
+        <MappingFragment StoreEntitySet="ProductTB">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UnitTBs">
+      <EntityTypeMapping TypeName="ProductDetailModel.UnitTB">
+        <MappingFragment StoreEntitySet="UnitTB">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
